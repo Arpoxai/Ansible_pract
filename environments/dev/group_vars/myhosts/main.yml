@@ -1,0 +1,25 @@
+mysql_root_password: root
+mysql_users:
+  - name: "wordpress_user"
+    host: "%"
+    password: "wordpress_pass"
+    priv: "*.*:ALL"
+mysql_database:
+  - name: "wordpress_db"
+php_fpm_apt_packages:
+  - php5-fpm
+  - php5-mysql
+php_fpm_pool_defaults:
+  pm: dynamic
+  pm.max_children: 5
+  pm.start_servers: 2
+  pm.min_spare_servers: 1
+  pm.max_spare_servers: 3
+php_fpm_pools:
+  - name: wordpress
+    user: www-data
+    group: www-data
+    listen: /var/run/wordpress.sock
+    listen.owner: www-data
+    listen.group: www-data
+    chdir: /srv/web

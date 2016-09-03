@@ -1,0 +1,12 @@
+- name: install git
+  apt: name=git state=present
+
+- name: remove dir
+  file: path=/srv/web state=absent
+- name: clone wordpress
+  git: repo=http://github.com/postgred/wordpress.git
+       dest=/srv/web
+       version=master
+
+- name: chown
+  file: path=/srv/web state=directory mode=0755 owner=www-data group=www-data
