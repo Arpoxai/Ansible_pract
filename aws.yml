@@ -1,0 +1,28 @@
+
+- hosts: localhost
+  gather_facts: False
+
+  vars:
+    instance_name: Arpoxai
+  tasks:
+    - name: create ec2 instances
+      ec2:
+        key_name: Ansible_AWS
+        instance_type: t2.micro
+        image: ami-d732f0b7
+        wait: yes
+        region: us-west-2
+        instance_tags:
+          Name: "{{instance_name}}"
+        exact_count: 1
+        count_tag:
+          Name: "{{instance_name}}"
+        group: default
+        vpc_subnet_id: subnet-2c2d0c48
+        assign_public_ip: yes
+      register: ec2_facts
+
+    - name: Show ip
+      debug:
+        msg: "{{(ec2_facts.tagged_instances | first).public_ip}}"
+

@@ -1,0 +1,6 @@
+- hosts: myhost
+  become: true
+  roles:
+    - jdauphant.nginx
+    - geerlingguy.mysql
+    - nbz4live.php-fpm

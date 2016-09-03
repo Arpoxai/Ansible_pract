@@ -1,0 +1,4 @@
+- hosts: myhost
+  become: true
+  roles:
+    - Stouts.iptables 
